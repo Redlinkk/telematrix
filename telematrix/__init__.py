@@ -103,7 +103,7 @@ def format_matrix_msg(form, content):
     :return: The formatted string.
     """
     if 'format' in content and content['format'] == 'org.matrix.custom.html':
-        sanitized = re.sub("<a href=\\\"https://matrix.to/#/@telegram_([0-9]+):{}\\\">(.+?) \(Telegram\)</a>".format(MATRIX_HOST_BARE), "<a href=\"tg://user?id=\\1\">\\2</a>", content['formatted_body'])
+        sanitized = re.sub("<a href=\\\"https://matrix.to/#/@telegram_([0-9]+):{}\\\">(.+?)</a>".format(MATRIX_HOST_BARE), "<a href=\"tg://user?id=\\1\">\\2</a>", content['formatted_body'])
         sanitized = sanitize_html(sanitized)
         return html.escape(form).format(sanitized), 'HTML'
     else:
@@ -848,7 +848,7 @@ def main():
     """
     Main function to get the entire ball rolling.
     """
-    logging.basicConfig(level=logging.WARNING)
+    logging.basicConfig(level=logging.DEBUG)
     db.initialize(DATABASE_URL)
 
     loop = asyncio.get_event_loop()
